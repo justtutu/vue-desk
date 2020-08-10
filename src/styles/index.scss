@@ -48,7 +48,7 @@ div:focus {
   outline: none;
 }
 
-.clearfix {
+@mixin clearfix {
   &:after {
     visibility: hidden;
     display: block;

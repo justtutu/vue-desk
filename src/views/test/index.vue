@@ -6,7 +6,7 @@
       </div>
     </el-header>
     <el-main class="container-main">
-      <el-carousel arrow="always" :autoplay="false" height="500px">
+      <el-carousel arrow="always" :autoplay="false">
         <el-carousel-item>
           <div class="left">
             111123213123123123
@@ -25,17 +25,18 @@
           </div>
           <div class="right">
             <ul class="menu-list">
-              <router-link class="menu" to="/">
-                <div class="icon" />
-                <div class="title">当日挂号</div>
-              </router-link>
-              <router-link class="menu" to="/">
-                <div class="icon" />
-                <div class="title">现场预约</div>
-              </router-link>
-              <router-link class="menu" to="/">
-                <div class="icon" />
-                <div class="title">预约取号</div>
+              <router-link
+                v-for="(item,index) in menuList"
+                :key="item.path
+                "
+                class="menu"
+                :class="'bg'+index"
+                :to="item.path"
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use :xlink:href="'#icon-'+item.path" />
+                </svg>
+                <div class="title">{{ item.name }}</div>
               </router-link>
             </ul>
           </div>
@@ -55,6 +56,16 @@
 
 <script>
 export default {
+  data() {
+    return {
+      menuList: [{
+        name: '当日挂号',
+        path: 'todayRegister'
+      }, { name: '现场预约', path: 'liveOrder' }, { name: '预约取号', path: 'takeNumber' },
+      { name: '门诊缴费', path: 'opcPay' }, { name: '门诊预交查询', path: 'opcOrderQuery' },
+      { name: '门诊清单查询', path: 'opcListQuery' }, { name: '物价查询', path: 'priceQuery' }, { name: '满意度调查', path: 'satisfactionResearch' }, { name: '医院介绍', path: 'hospitalIntroduce' }]
+    }
+  }
 }
 </script>
 
@@ -80,6 +91,7 @@ export default {
     padding: 0;
     background-color: #fff;
     color: #000;
+
     .left{
       width: 20%;
       height: 100%;
@@ -95,14 +107,39 @@ export default {
         height: 100%;
         display: flex;
         justify-content: space-evenly;
+        flex-wrap: wrap;
         .menu{
-          width: 30%;
-          height: 30%;
+          width: 27%;
+          height: 27%;
           background-color: #26b562;
           display: flex;
           flex-direction: column;
+          align-items: center;
+          justify-content: space-evenly;
           .title{
             font-size: 20px;
+            color: #ecf0f1;
+          }
+          &.bg1{
+            background-color: #1abc9c;
+          }
+          &.bg2{
+            background-color: #2ecc71;
+          }
+          &.bg3{
+            background-color: #3498db;
+          }
+          &.bg4{
+            background-color: #9b59b6;
+          }
+          &.bg5{
+            background-color: #f1c40f;
+          }
+          &.bg6{
+            background-color: #e67e22;
+          }
+          &.bg7{
+            background-color: #e74c3c;
           }
         }
       }
@@ -118,5 +155,13 @@ export default {
     padding: 20px 50px;
     font-size: 24px;
   }
+
+}
+.el-carousel{
+  height: 100%;
+
+}
+::v-deep  .el-carousel__container{
+  height: 100% !important;
 }
 </style>
